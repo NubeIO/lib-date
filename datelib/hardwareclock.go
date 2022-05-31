@@ -23,7 +23,7 @@ type HardwareClock struct {
 	RTCInLocalTZ            string `json:"rtc_in_local_tz"`
 }
 
-func (inst *Admin) GetHardwareTZ() (string, error) {
+func (inst *Date) GetHardwareTZ() (string, error) {
 
 	inst.CMD.Commands = Builder("cat", "/etc/timezone")
 	res := inst.CMD.RunCommand()
@@ -35,7 +35,7 @@ func (inst *Admin) GetHardwareTZ() (string, error) {
 	}
 }
 
-func (inst *Admin) GetHardwareClock() (HardwareClock, error) {
+func (inst *Date) GetHardwareClock() (HardwareClock, error) {
 	inst.CMD.Commands = Builder("timedatectl", "status")
 	res := inst.CMD.RunCommand()
 	var hc HardwareClock

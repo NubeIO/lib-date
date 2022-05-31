@@ -1,16 +1,16 @@
 package datelib
 
-type Admin struct {
+type Date struct {
 	CMD *Command
 }
 
-func New(admin *Admin) *Admin {
+func New(admin *Date) *Date {
 	opts := &Command{}
 	admin.CMD = opts
 	return admin
 }
 
-func (inst *Admin) Uptime() (res *Response) {
+func (inst *Date) Uptime() (res *Response) {
 	cmd := "uptime"
 	inst.CMD.Commands = Builder(cmd)
 	res = inst.CMD.RunCommand()

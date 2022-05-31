@@ -15,7 +15,7 @@ type Time struct {
 	HardwareClock    HardwareClock `json:"hardware_clock"`
 }
 
-func (inst *Admin) SystemTime() (*Time, error) {
+func (inst *Date) SystemTime() (*Time, error) {
 	t := new(Time)
 	t.DateStamp = time.Now()
 	timeUTC := t.DateStamp.UTC()

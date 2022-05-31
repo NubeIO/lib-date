@@ -4,7 +4,7 @@ import (
 	"strings"
 )
 
-func (inst *Admin) GetTimeZoneList() ([]string, error) {
+func (inst *Date) GetTimeZoneList() ([]string, error) {
 	inst.CMD.Commands = Builder("timedatectl", "list-timezones")
 	res := inst.CMD.RunCommand()
 	if res.Err != nil {

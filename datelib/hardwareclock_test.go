@@ -6,7 +6,7 @@ import (
 )
 
 func TestAdmin_GetHardwareClock(t *testing.T) {
-	host := &Admin{}
+	host := &Date{}
 	run := New(host)
 	run.GetTimeZoneList()
 
