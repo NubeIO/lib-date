@@ -54,6 +54,27 @@ func (inst *Date) SetSystemTime(date string) error {
 	if res.Err != nil {
 		return res.Err
 	}
+	return nil
+}
 
+// NTPDisable timedatectl set-ntp false
+func (inst *Date) NTPDisable() error {
+	// set system time
+	inst.CMD.Commands = Builder("timedatectl", "-set-ntp", "false")
+	res := inst.CMD.RunCommand()
+	if res.Err != nil {
+		return res.Err
+	}
+	return nil
+}
+
+// NTPEnable timedatectl set-ntp true
+func (inst *Date) NTPEnable() error {
+	// set system time
+	inst.CMD.Commands = Builder("timedatectl", "-set-ntp", "true")
+	res := inst.CMD.RunCommand()
+	if res.Err != nil {
+		return res.Err
+	}
 	return nil
 }
