@@ -3,19 +3,17 @@ package datelib
 import "time"
 
 type Time struct {
-	DateStamp        time.Time     `json:"date_stamp"`
-	TimeLocal        string        `json:"time_local"`
-	TimeUTC          string        `json:"time_utc"`
-	CurrentDay       string        `json:"current_day"`
-	CurrentDayUTC    string        `json:"current_day_utc"`
-	DateFormatLocal  string        `json:"date_format_local"`
-	DateFormatUTC    string        `json:"date_format_utc"`
-	SystemTimeZone   string        `json:"system_time_zone"`
-	HardwareTimeZone string        `json:"hardware_time_zone"`
-	HardwareClock    HardwareClock `json:"hardware_clock"`
+	DateStamp       time.Time `json:"date_stamp"`
+	TimeLocal       string    `json:"time_local"`
+	TimeUTC         string    `json:"time_utc"`
+	CurrentDay      string    `json:"current_day"`
+	CurrentDayUTC   string    `json:"current_day_utc"`
+	DateFormatLocal string    `json:"date_format_local"`
+	DateFormatUTC   string    `json:"date_format_utc"`
+	SystemTimeZone  string    `json:"system_time_zone"`
 }
 
-func (inst *Date) SystemTime() (*Time, error) {
+func (inst *Date) SystemTime() *Time {
 	t := new(Time)
 	t.DateStamp = time.Now()
 	timeUTC := t.DateStamp.UTC()
@@ -27,9 +25,13 @@ func (inst *Date) SystemTime() (*Time, error) {
 	t.DateFormatUTC = timeUTC.Format("01-02-2006 15:04:05")
 	zone, _ := t.DateStamp.Zone()
 	t.SystemTimeZone = zone
+	return t
+}
+
+func (inst *Date) SystemTimeHardware() (HardwareClock, error) {
+	t := &HardwareClock{}
 	timeZone, err := inst.GetHardwareTZ()
 	t.HardwareTimeZone = timeZone
 	tz, err := inst.GetHardwareClock()
-	t.HardwareClock = tz
-	return t, err
+	return tz, err
 }

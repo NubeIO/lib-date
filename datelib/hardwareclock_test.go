@@ -10,6 +10,9 @@ func TestAdmin_GetHardwareClock(t *testing.T) {
 	run := New(host)
 	run.GetTimeZoneList()
 
-	out, err := run.SystemTime()
-	fmt.Println(err, out)
+	//out, err := run.SystemTimeHardware()
+	//fmt.Println(err, out)
+
+	out2 := run.SystemTime()
+	fmt.Println(out2)
 }

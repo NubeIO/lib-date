@@ -21,6 +21,7 @@ type HardwareClock struct {
 	SystemClockSynchronized string `json:"system_clock_synchronized"`
 	NTPService              string `json:"ntp_service"`
 	RTCInLocalTZ            string `json:"rtc_in_local_tz"`
+	HardwareTimeZone        string `json:"hardware_time_zone"`
 }
 
 func (inst *Date) GetHardwareTZ() (string, error) {
