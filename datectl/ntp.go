@@ -1,0 +1,68 @@
+package system
+
+import (
+	"os/exec"
+)
+
+func (inst *DateCTL) ntpEnable(enable bool) (*Message, error) {
+	cmd := exec.Command("timedatectl", "set-ntp", "false")
+	if enable {
+		cmd = exec.Command("timedatectl", "set-ntp", "true")
+	}
+	output, err := cmd.Output()
+	cleanCommand(string(output), cmd, err, debug)
+	if err != nil {
+		return nil, err
+	}
+	return &Message{Message: "ok"}, err
+}
+
+func (inst *DateCTL) NTPDisable() (*Message, error) {
+	return inst.ntpEnable(false)
+}
+
+func (inst *DateCTL) NTPEnable() (*Message, error) {
+	return inst.ntpEnable(true)
+}
+
+const (
+	timeSyncConfPath = "/etc/systemd/timesyncd.conf"
+)
+
+// TimeSyncConfig Json request
+type TimeSyncConfig struct {
+	NTP                []string `json:"NTP"`
+	FallbackNTP        []string `json:"fallback_ntp"`
+	RootDistanceMaxSec string   `json:"root_distance_max_sec"`
+	PollIntervalMinSec string   `json:"poll_interval_min_sec"`
+	PollIntervalMaxSec string   `json:"poll_interval_max_sec"`
+}
+
+func (inst *TimeSyncConfig) generateConf() string {
+	conf := "[Time]\n"
+	ntpConf := "NTP="
+	for _, s := range inst.NTP {
+		ntpConf += s + " "
+	}
+	conf += ntpConf + "\n"
+	if len(inst.FallbackNTP) > 0 {
+		FallbackNTP := "FallbackNTP="
+		for _, s := range inst.FallbackNTP {
+			FallbackNTP += s + " "
+		}
+		conf += FallbackNTP + "\n"
+	}
+
+	if inst.RootDistanceMaxSec != "" {
+		conf += "RootDistanceMaxSec=" + inst.RootDistanceMaxSec + "\n"
+	}
+
+	if inst.PollIntervalMinSec != "" {
+		conf += "PollIntervalMinSec=" + inst.PollIntervalMinSec + "\n"
+	}
+
+	if inst.PollIntervalMaxSec != "" {
+		conf += "PollIntervalMaxSec=" + inst.PollIntervalMaxSec + "\n"
+	}
+	return conf
+}

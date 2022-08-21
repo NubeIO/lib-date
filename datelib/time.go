@@ -21,17 +21,9 @@ func (inst *Date) SystemTime() *Time {
 	t.TimeUTC = timeUTC.Format("15:04:05")
 	t.CurrentDay = t.DateStamp.Format("Monday")
 	t.CurrentDayUTC = timeUTC.Format("Monday")
-	t.DateFormatLocal = t.DateStamp.Format("01-02-2006 15:04:05")
-	t.DateFormatUTC = timeUTC.Format("01-02-2006 15:04:05")
+	t.DateFormatLocal = t.DateStamp.Format("2006-01-02 15:04:05")
+	t.DateFormatUTC = timeUTC.Format("2006-01-02 15:04:05")
 	zone, _ := t.DateStamp.Zone()
 	t.SystemTimeZone = zone
 	return t
-}
-
-func (inst *Date) SystemTimeHardware() (HardwareClock, error) {
-	t := &HardwareClock{}
-	timeZone, err := inst.GetHardwareTZ()
-	t.HardwareTimeZone = timeZone
-	tz, err := inst.GetHardwareClock()
-	return tz, err
 }
