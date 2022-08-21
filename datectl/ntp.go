@@ -38,31 +38,34 @@ type TimeSyncConfig struct {
 	PollIntervalMaxSec string   `json:"poll_interval_max_sec"`
 }
 
-func (inst *TimeSyncConfig) generateConf() string {
+func (inst *DateCTL) GenerateTimeSyncConfig(body *TimeSyncConfig) string {
+	if body == nil {
+		return ""
+	}
 	conf := "[Time]\n"
 	ntpConf := "NTP="
-	for _, s := range inst.NTP {
+	for _, s := range body.NTP {
 		ntpConf += s + " "
 	}
 	conf += ntpConf + "\n"
-	if len(inst.FallbackNTP) > 0 {
+	if len(body.FallbackNTP) > 0 {
 		FallbackNTP := "FallbackNTP="
-		for _, s := range inst.FallbackNTP {
+		for _, s := range body.FallbackNTP {
 			FallbackNTP += s + " "
 		}
 		conf += FallbackNTP + "\n"
 	}
 
-	if inst.RootDistanceMaxSec != "" {
-		conf += "RootDistanceMaxSec=" + inst.RootDistanceMaxSec + "\n"
+	if body.RootDistanceMaxSec != "" {
+		conf += "RootDistanceMaxSec=" + body.RootDistanceMaxSec + "\n"
 	}
 
-	if inst.PollIntervalMinSec != "" {
-		conf += "PollIntervalMinSec=" + inst.PollIntervalMinSec + "\n"
+	if body.PollIntervalMinSec != "" {
+		conf += "PollIntervalMinSec=" + body.PollIntervalMinSec + "\n"
 	}
 
-	if inst.PollIntervalMaxSec != "" {
-		conf += "PollIntervalMaxSec=" + inst.PollIntervalMaxSec + "\n"
+	if body.PollIntervalMaxSec != "" {
+		conf += "PollIntervalMaxSec=" + body.PollIntervalMaxSec + "\n"
 	}
 	return conf
 }
