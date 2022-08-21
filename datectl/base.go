@@ -9,7 +9,7 @@ import (
 type DateCTL struct {
 }
 
-var debug = true
+var debug = false
 
 const Permission = 0700
 
