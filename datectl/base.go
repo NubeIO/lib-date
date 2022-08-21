@@ -1,4 +1,4 @@
-package system
+package datectl
 
 import (
 	log "github.com/sirupsen/logrus"

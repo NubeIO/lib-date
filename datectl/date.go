@@ -1,4 +1,4 @@
-package system
+package datectl
 
 import (
 	"errors"
