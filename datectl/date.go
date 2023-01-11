@@ -76,8 +76,26 @@ func (inst *DateCTL) UpdateTimezone(newZone string) error {
 	return nil
 }
 
-//SetSystemTime timedatectl set-time '2015-11-23 08:10:40'
+//SetSystemTime sudo date -s '2015-11-23 08:10:40'
 func (inst *DateCTL) SetSystemTime(dateTime string) error {
+	layout := "2006-01-02 15:04:05"
+	// parse time
+	t, err := time.Parse(layout, dateTime)
+	if err != nil {
+		return fmt.Errorf("could not parse date  %s", err)
+	}
+	log.Infof("set time to %s", t.String())
+	cmd := exec.Command("sudo", "date", "-s", dateTime)
+	output, err := cmd.Output()
+	cleanCommand(string(output), cmd, err, debug)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+//SetSystemTimeCTL timedatectl set-time '2015-11-23 08:10:40'
+func (inst *DateCTL) SetSystemTimeCTL(dateTime string) error {
 	layout := "2006-01-02 15:04:05"
 	// parse time
 	t, err := time.Parse(layout, dateTime)
