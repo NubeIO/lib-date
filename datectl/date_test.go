@@ -14,7 +14,7 @@ func TestDateCTL_GetHardwareClock(t *testing.T) {
 	if err != nil {
 		return
 	}
-	pprint.PrintJOSN(time_)
+	pprint.PrintJSON(time_)
 }
 
 func TestDateCTL_SetSystemTime(t *testing.T) {
