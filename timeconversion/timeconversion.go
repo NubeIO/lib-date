@@ -10,11 +10,11 @@ import (
 
 /*
 AdjustTime takes a systemd time adjustment string and uses it to modify a time.Time
-	- adjustment examples
-	- 1day
-	- 1 day
-	- 1day
-	- 2years
+  - adjustment examples
+  - 1day
+  - 1 day
+  - 1day
+  - 2years
 */
 func AdjustTime(original time.Time, adjustment string) (time.Time, error) {
 	duration, err := parseDuration(adjustment)

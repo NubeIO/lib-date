@@ -35,7 +35,7 @@ func (inst *DateCTL) GetHardwareTZ() (string, error) {
 	}
 }
 
-func (inst *DateCTL) GetTimeZoneList() ([]string, error) {
+func (inst *DateCTL) GetTimezoneList() ([]string, error) {
 	cmd := exec.Command("timedatectl", "list-timezones")
 	output, err := cmd.Output()
 	cleanCommand(string(output), cmd, err, debug)
@@ -54,7 +54,7 @@ func (inst *DateCTL) GetTimeZoneList() ([]string, error) {
 
 // UpdateTimezone sets the current machine's timezone to the given timezone
 func (inst *DateCTL) UpdateTimezone(newZone string) error {
-	list, err := inst.GetTimeZoneList()
+	list, err := inst.GetTimezoneList()
 	if err != nil {
 		return err
 	}
@@ -76,7 +76,7 @@ func (inst *DateCTL) UpdateTimezone(newZone string) error {
 	return nil
 }
 
-//SetSystemTime sudo date -s '2015-11-23 08:10:40'
+// SetSystemTime sudo date -s '2015-11-23 08:10:40'
 func (inst *DateCTL) SetSystemTime(dateTime string) error {
 	layout := "2006-01-02 15:04:05"
 	// parse time
@@ -94,7 +94,7 @@ func (inst *DateCTL) SetSystemTime(dateTime string) error {
 	return nil
 }
 
-//SetSystemTimeCTL timedatectl set-time '2015-11-23 08:10:40'
+// SetSystemTimeCTL timedatectl set-time '2015-11-23 08:10:40'
 func (inst *DateCTL) SetSystemTimeCTL(dateTime string) error {
 	layout := "2006-01-02 15:04:05"
 	// parse time

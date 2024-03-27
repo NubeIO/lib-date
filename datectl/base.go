@@ -11,8 +11,6 @@ type DateCTL struct {
 
 var debug = false
 
-const Permission = 0700
-
 type Message struct {
 	Message string `json:"message"`
 }
@@ -35,5 +33,4 @@ func cleanCommand(resp string, cmd *exec.Cmd, err error, debug ...bool) string {
 		}
 	}
 	return outAsString
-
 }
